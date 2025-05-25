@@ -53,9 +53,8 @@ const addProduct = async (req, res) => {
  // Function for list product
  const listProduct = async (req, res) => {
        try {
-        
-
-         const products = await productModel.find({ isVisible: true })
+         const products = await productModel.find({})
+         console.log('listProduct: fetched products count:', products.length);
          res.json({success:true,products})
        } catch (error) {
         console.log(error)

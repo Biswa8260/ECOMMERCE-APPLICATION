@@ -13,25 +13,30 @@ const loginUser = async (req, res) => {
     try{
         const {email, password} = req.body;
 
+        console.log('loginUser called with email:', email);
+        console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'SET' : 'NOT SET');
+
          const user = await userModel.findOne({email});
          if(!user){
+            console.log('User not found');
             return res.json({success:false, message: "user does not exist"})
          }
 
          const isMatch = await bcrypt.compare(password, user.password);
 
          if (isMatch){
-     const token = createToken(user._id);
-     return res.json({success:true, token})
+            const token = createToken(user._id);
+            console.log('Token created:', token);
+            return res.json({success:true, token})
          }
 
          else{
-          res.json({success:false, message: 'Invalid credentials'})
+            console.log('Invalid credentials');
+            res.json({success:false, message: 'Invalid credentials'})
          }
     }catch(error){
       console.log(error);
-    res.json({success:false, message: error.message})
-
+      res.json({success:false, message: error.message})
     }
 
 }

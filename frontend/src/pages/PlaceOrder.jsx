@@ -18,6 +18,25 @@ const PlaceOrder = () => {
   const [zipCode, setZipCode] = useState('');
   const [country, setCountry] = useState('');
   const [phone, setPhone] = useState('');
+  // const [formData,setFormData] = useState({
+  //   firstName:'',
+  //   lastName:'',
+  //   email:'',
+  //   street:'',
+  //   city:'',
+  //   state:'',
+  //   zipCode:'',
+  //   country:'',  
+  //   phone:''  
+  // })
+
+  // const onChangeHandler = (event) =>{
+  //   const name = event.target.name;
+  //   const value= event.target.value
+
+  //   setFormData(data => ({...data,[name]:value}))
+
+  // }
 
   const {navigate}=useContext(ShopContext);
 
@@ -31,7 +50,7 @@ const PlaceOrder = () => {
 
   return (
     
-    <div className='flex flex-wrap gap-8 pt-5 sm:pt-14 min-h-[80vh] border-top'>
+    <form className='flex flex-wrap gap-8 pt-5 sm:pt-14 min-h-[80vh] border-top'>
 
 
       <div className='flex flex-col gap-4 w-full sm:max-w-[480px]'>
@@ -94,7 +113,7 @@ const PlaceOrder = () => {
         </div>
       </div>
       
-    </div>
+    </form>
   )
 }
 
