@@ -33,6 +33,7 @@ export const ShopContextProvider = ({ children }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [token, setTokenState] = useState('');
+  const [deliveryInfo, setDeliveryInfo] = useState(null); // New state for delivery info
   const navigate = useNavigate();
 
   // On mount, load token from localStorage if exists and validate it
@@ -70,6 +71,15 @@ export const ShopContextProvider = ({ children }) => {
       console.log('isTokenValid: error decoding token:', error);
       return false;
     }
+  };
+
+  // New function to validate delivery info before checkout
+  const validateDeliveryInfo = () => {
+    if (!deliveryInfo || !deliveryInfo.address || !deliveryInfo.city || !deliveryInfo.zip) {
+      toast.error('Please fill up delivery information first');
+      return false;
+    }
+    return true;
   };
 
   // Wrapper to set token in state and localStorage without validation (temporary for testing)
@@ -209,6 +219,9 @@ export const ShopContextProvider = ({ children }) => {
         setToken,
         token,
         logout,
+        deliveryInfo,
+        setDeliveryInfo,
+        validateDeliveryInfo,
         logToken: () => console.log('ShopContext: current token:', token),
       }}
     >

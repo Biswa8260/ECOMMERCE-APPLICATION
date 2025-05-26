@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ecommerce-backend
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    envVars:
+      - key: PORT
+        value: "4000"
+      - key: MONGODB_URI
+        fromDatabase: "mongodb+srv://bisworanjanmishra:8260796596@cluster0.zzgf80g.mongodb.net"
+      - key: CLOUDINARY_NAME
+        fromDatabase: "daeugf9ey"
+      - key: CLOUDINARY_API_KEY
+        fromDatabase: "752428267871533"
+      - key: CLOUDINARY_SECRET_KEY
+        fromDatabase: "zDaItPhsdT0Rovs0W1cF_AR8FzI"
+    autoDeploy: true
+    branch: main

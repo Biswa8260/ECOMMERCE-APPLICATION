@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { Link } from 'react-router-dom';
+import logo from '../assets/image.png';
 
 const Navbar = () => {
   const { token, logout, getCartCount } = useContext(ShopContext);
@@ -9,7 +10,9 @@ const Navbar = () => {
   return (
     <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
       <div className="text-xl font-bold">
-        <Link to="/" className="hover:underline">Ecommerce App</Link>
+        <Link to="/">
+          <img src={logo} alt="Logo" className="h-16 w-auto bg-white p-1 rounded" />
+        </Link>
       </div>
       <div className="flex space-x-4 items-center">
         <Link to="/" className="hover:underline">Home</Link>

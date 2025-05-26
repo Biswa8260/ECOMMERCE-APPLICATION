@@ -33,10 +33,39 @@ app.use('/api/order',orderRouter)
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send('Api Working');
+    req.body()
 });
 
-// Start server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+// Handle favicon.ico requests to avoid 500 errors
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+});
+
+import { createServer } from 'http';
+import { parse } from 'url';
+
+const server = createServer((req, res) => {
+  app(req, res);
+});
+
+if (process.env.VERCEL) {
+  // Export the app for Vercel serverless function
+}
+
+export default app;
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+  console.log('Environment variables:', {
+    MONGODB_URI: process.env.MONGODB_URI ? 'set' : 'not set',
+    CLOUDINARY_NAME: process.env.CLOUDINARY_NAME ? 'set' : 'not set',
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY ? 'set' : 'not set',
+    CLOUDINARY_SECRET_KEY: process.env.CLOUDINARY_SECRET_KEY ? 'set' : 'not set',
+    PORT: process.env.PORT || 'default 4000'
+  });
 });

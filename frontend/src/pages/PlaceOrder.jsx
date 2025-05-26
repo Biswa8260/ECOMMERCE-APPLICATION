@@ -18,31 +18,28 @@ const PlaceOrder = () => {
   const [zipCode, setZipCode] = useState('');
   const [country, setCountry] = useState('');
   const [phone, setPhone] = useState('');
-  // const [formData,setFormData] = useState({
-  //   firstName:'',
-  //   lastName:'',
-  //   email:'',
-  //   street:'',
-  //   city:'',
-  //   state:'',
-  //   zipCode:'',
-  //   country:'',  
-  //   phone:''  
-  // })
+  
 
-  // const onChangeHandler = (event) =>{
-  //   const name = event.target.name;
-  //   const value= event.target.value
+  const {navigate, validateDeliveryInfo, setDeliveryInfo} = useContext(ShopContext);
 
-  //   setFormData(data => ({...data,[name]:value}))
+  const handlePlaceOrder = (e) => {
+    e.preventDefault();
 
-  // }
+    // Set delivery info in context
+    setDeliveryInfo({
+      address: street,
+      city: city,
+      state: state,
+      zip: zipCode,
+      country: country,
+      phone: phone,
+      firstName: firstName,
+      lastName: lastName,
+      email: email
+    });
 
-  const {navigate}=useContext(ShopContext);
-
-  const handlePlaceOrder = () => {
-    if (!firstName || !lastName || !email || !street || !city || !state || !zipCode || !country || !phone) {
-      toast.error('Please fill up the delivery information first');
+    // Validate delivery info using context function
+    if (!validateDeliveryInfo()) {
       return;
     }
     navigate('./orders');
