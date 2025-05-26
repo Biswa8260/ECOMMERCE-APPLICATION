@@ -34,7 +34,7 @@ app.use('/api/order',orderRouter)
 
 app.get('/', (req, res) => {
     res.send('Api Working');
-    req.body()
+   
 });
 
 // Handle favicon.ico requests to avoid 500 errors
